@@ -34,14 +34,15 @@ try:
     from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
     from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
     from matplotlib.figure import Figure
-except ImportError:
+except ImportError, e:
     msg = PySide.QtGui.QApplication.translate(
         "plot_console",
         "matplotlib not found, so Plot module can not be loaded",
         None,
         PySide.QtGui.QApplication.UnicodeUTF8)
+    msg += ' ("%s")' % (e.message)
     FreeCAD.Console.PrintMessage(msg + '\n')
-    raise ImportError("matplotlib not installed")
+    raise ImportError(msg)
 
 
 def getMainWindow():
